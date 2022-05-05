@@ -2,12 +2,15 @@
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
+#import <React/RCTRootView.h>
 
 @interface AppDelegate () <RCTBridgeDelegate>
 
 @end
 
 @implementation AppDelegate
+NSStatusItem* statusBarItem;
+NSPopover* popover;
 
 - (void)awakeFromNib {
   [super awakeFromNib];
@@ -17,6 +20,36 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   // Insert code here to initialize your application
+  
+  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:_bridge moduleName:@"instanttransmission" initialProperties:nil];
+  
+
+  NSViewController* rootViewController = [[NSViewController alloc] init];
+  rootViewController.view = rootView;
+
+  popover = [[NSPopover alloc] init];
+
+  popover.contentSize = NSMakeSize(700, 800);
+  popover.animates = true;
+  popover.behavior = NSPopoverBehaviorTransient;
+  popover.contentViewController = rootViewController;
+
+  statusBarItem = [NSStatusBar.systemStatusBar statusItemWithLength:60];
+  statusBarItem.button.title = @"hello";
+  statusBarItem.button.action = @selector(barItemAction:);
+
+}
+
+-(void)barItemAction:(id) sender {
+  if (popover.isShown) {
+    [popover performClose:self];
+  } else {
+    [popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
+
+    [popover.contentViewController.view.window becomeKeyWindow];
+
+
+  }
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
