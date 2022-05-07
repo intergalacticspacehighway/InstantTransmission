@@ -1,7 +1,7 @@
 require_relative '../node_modules/react-native-macos/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-target 'instanttransmission-macOS' do
+target 'instanttransmission' do
   platform :macos, '10.14'
   use_native_modules!
   use_react_native!(
@@ -17,19 +17,19 @@ target 'instanttransmission-macOS' do
   # Pods specifically for macOS target
 end
 
-target 'instanttransmission-iOS' do
-  platform :ios, '10'
-  use_native_modules!
-  use_react_native!(:path => '../node_modules/react-native-macos')
+# target 'instanttransmission-iOS' do
+#   platform :ios, '10'
+#   use_native_modules!
+#   use_react_native!(:path => '../node_modules/react-native-macos')
 
-  # Enables Flipper.
-  #
-  # Note that if you have use_frameworks! enabled, Flipper will not work and
-  # you should disable these next few lines.
-  use_flipper!
-  post_install do |installer|
-    flipper_post_install(installer)
-  end
+#   # Enables Flipper.
+#   #
+#   # Note that if you have use_frameworks! enabled, Flipper will not work and
+#   # you should disable these next few lines.
+#   use_flipper!
+#   post_install do |installer|
+#     flipper_post_install(installer)
+#   end
 
-  # Pods specifically for iOS target
-end
+#   # Pods specifically for iOS target
+# end
