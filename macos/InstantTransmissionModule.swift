@@ -1,6 +1,8 @@
 import Foundation
 import HotKey
 import LaunchAtLogin
+import SwiftUI
+
 
 @objc(InstantTransmissionModule)
 class InstantTransmissionModule: RCTEventEmitter {
@@ -49,7 +51,7 @@ class InstantTransmissionModule: RCTEventEmitter {
     }
     
     recordCursorShortcut.keyDownHandler = {
-      let mousePosition = CGPoint(x: NSEvent.mouseLocation.x, y: (NSScreen.main?.frame.size.height)! - NSEvent.mouseLocation.y)
+      let mousePosition = CGPoint(x: NSEvent.mouseLocation.x, y: NSEvent.mouseLocation.y)
       self.sendEvent(withName: self.RECORD_CURSOR_EVENT, body: ["x": mousePosition.x, "y": mousePosition.y]);
     }
     
@@ -57,8 +59,38 @@ class InstantTransmissionModule: RCTEventEmitter {
   
 
   @objc func moveCursorTo(_ x: Double, y: Double) {
-    let position = NSPoint(x: x, y: y);
-    CGWarpMouseCursorPosition(position);
+    let mousePositionFromTopLeftOrigin = CGPoint(x: x, y: (NSScreen.main?.frame.size.height)! - y);
+    CGWarpMouseCursorPosition(mousePositionFromTopLeftOrigin);
+   
+    DispatchQueue.main.async {
+
+      let indicatorHeight = 50.0;
+      let indicatorWidth = 50.0;
+      
+      let contentView = Circle()
+                .stroke(lineWidth: 2)
+                .foregroundColor(.blue)
+                .frame(width: indicatorWidth, height: indicatorHeight)
+                .padding(2)
+      let window = NSWindow(
+                contentRect: NSRect(x: x - indicatorWidth / 2, y: y - indicatorHeight / 2, width: indicatorWidth, height: indicatorHeight),
+                styleMask: [.borderless],
+                backing: .buffered,
+                defer: false
+            )
+      window.contentView = NSHostingView(rootView: contentView)
+      window.backgroundColor = .clear
+      window.level = NSWindow.Level.statusBar
+      window.makeKeyAndOrderFront(nil)
+      
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+         
+        window.orderOut(self);
+      }
+    }
+
+
+
   }
   
   @objc func toggleLaunchAtLogin() {

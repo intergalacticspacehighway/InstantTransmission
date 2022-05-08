@@ -12,6 +12,7 @@ import {
 import {useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import useColorScheme from 'react-native/Libraries/Utilities/useColorScheme';
 
 const InstantTransmission = NativeModules.InstantTransmissionModule;
 const InstantTransmissionEventEmitter = new NativeEventEmitter(
@@ -21,6 +22,8 @@ const InstantTransmissionEventEmitter = new NativeEventEmitter(
 const App = () => {
   const [recordedCursorPositions, setRecordedCursorPositions] = useState([]);
   const [launchAtLoginEnabled, setLaunchAtLoginEnabled] = useState(false);
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
 
   useEffect(() => {
     InstantTransmission.launchAtLoginEnabled(v => {
@@ -98,7 +101,7 @@ const App = () => {
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                  backgroundColor: '#cbd5e1',
+                  backgroundColor: isDark ? '#334155' : '#cbd5e1',
                   marginBottom: 8,
                   padding: 8,
                   borderRadius: 8,
@@ -181,7 +184,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    padding: 8,
+    padding: 16,
   },
   row: {
     flexDirection: 'row',
