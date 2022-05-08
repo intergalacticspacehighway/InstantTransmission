@@ -3,6 +3,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import "instanttransmission-Swift.h"
 
 @interface AppDelegate () <RCTBridgeDelegate>
 
@@ -37,6 +38,8 @@ NSPopover* popover;
   statusBarItem = [NSStatusBar.systemStatusBar statusItemWithLength:60];
   statusBarItem.button.title = @"hello";
   statusBarItem.button.action = @selector(barItemAction:);
+  
+  Test* a = [[Test alloc] init];
 
 }
 

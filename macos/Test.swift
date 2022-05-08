@@ -6,3 +6,9 @@
 //
 
 import Foundation
+@objc class Test: NSObject {
+  override init(){
+    print("hello world")
+  }
+  
+}
