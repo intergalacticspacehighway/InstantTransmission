@@ -15,6 +15,7 @@
 		C00E46D528277931006D2596 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = C00E46D428277931006D2596 /* HotKey */; };
 		C00E46D728277AF5006D2596 /* InstantTransmissionModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E46D628277AF5006D2596 /* InstantTransmissionModule.swift */; };
 		C00E46DB28277BEA006D2596 /* InstantTransmissionBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = C00E46DA28277BEA006D2596 /* InstantTransmissionBridge.m */; };
+		C00E46DD28279F93006D2596 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = C00E46DC28279F93006D2596 /* Fonts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		C00E46D0282674BA006D2596 /* instanttransmission-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "instanttransmission-Bridging-Header.h"; sourceTree = "<group>"; };
 		C00E46D628277AF5006D2596 /* InstantTransmissionModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantTransmissionModule.swift; sourceTree = "<group>"; };
 		C00E46DA28277BEA006D2596 /* InstantTransmissionBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstantTransmissionBridge.m; sourceTree = "<group>"; };
+		C00E46DC28279F93006D2596 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = "../node_modules/react-native-vector-icons/Fonts"; sourceTree = "<group>"; };
 		CE0E74F571E1F48FF00A8324 /* Pods-Shared-instanttransmission.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shared-instanttransmission.release.xcconfig"; path = "Target Support Files/Pods-Shared-instanttransmission/Pods-Shared-instanttransmission.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				C00E46DA28277BEA006D2596 /* InstantTransmissionBridge.m */,
+				C00E46DC28279F93006D2596 /* Fonts */,
 				C00E46D628277AF5006D2596 /* InstantTransmissionModule.swift */,
 				38423A3E24576CBC00BC2EAC /* main.jsbundle */,
 				5142014B2437B4B30078DB4F /* AppDelegate.h */,
@@ -194,6 +197,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C00E46DD28279F93006D2596 /* Fonts in Resources */,
 				514201522437B4B40078DB4F /* Assets.xcassets in Resources */,
 				514201552437B4B40078DB4F /* Main.storyboard in Resources */,
 			);

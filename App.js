@@ -9,6 +9,8 @@ import {
   Pressable,
 } from 'react-native';
 import {useEffect, useState} from 'react';
+import Icon from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const InstantTransmission = NativeModules.InstantTransmissionModule;
 const InstantTransmissionEventEmitter = new NativeEventEmitter(
@@ -71,30 +73,58 @@ const App = () => {
                   borderRadius: 8,
                 }}>
                 <View key={position.id}>
-                  <Text>Position {position.id}</Text>
+                  <Text>#{position.id + 1}</Text>
                 </View>
                 <Pressable onPress={() => deletePosition(position.id)}>
-                  <Text
-                    style={{
-                      fontWeight: 'bold',
-                      fontSize: 12,
-                      color: '#dc2626',
-                    }}>
-                    Remove
-                  </Text>
+                  <Icon name="delete" color={'#ef4444'} size={16} />
                 </Pressable>
               </View>
             );
           })}
           <View style={{marginTop: 8}}>
-            <Text style={{fontSize: 12, fontWeight: 'bold'}}>Save</Text>
-            <Text style={{fontSize: 12}}>command + shift + 0</Text>
-            <Text style={{fontSize: 12, fontWeight: 'bold', marginTop: 8}}>
+            <Text
+              style={{fontSize: iconSize, fontWeight: 'bold', marginBottom: 4}}>
+              Save
+            </Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <MaterialCommunityIcon
+                name="apple-keyboard-command"
+                size={iconSize}
+              />
+              <MaterialCommunityIcon name="plus" size={iconSize} />
+              <MaterialCommunityIcon
+                name="apple-keyboard-shift"
+                size={iconSize}
+              />
+              <MaterialCommunityIcon name="plus" size={iconSize} />
+              <Text style={{fontSize: iconSize}}>0</Text>
+            </View>
+            <Text
+              style={{
+                fontSize: iconSize,
+                fontWeight: 'bold',
+                marginBottom: 4,
+                marginTop: 8,
+              }}>
               Move
             </Text>
-            <Text style={{fontSize: 12}}>command + shift + 7</Text>
-            <Text style={{fontSize: 12}}>command + shift + 8</Text>
-            <Text style={{fontSize: 12}}>command + shift + 9</Text>
+            {[7, 8, 9].map(t => {
+              return (
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <MaterialCommunityIcon
+                    name="apple-keyboard-command"
+                    size={iconSize}
+                  />
+                  <MaterialCommunityIcon name="plus" size={iconSize} />
+                  <MaterialCommunityIcon
+                    name="apple-keyboard-shift"
+                    size={iconSize}
+                  />
+                  <MaterialCommunityIcon name="plus" size={iconSize} />
+                  <Text style={{fontSize: iconSize}}>{t}</Text>
+                </View>
+              );
+            })}
           </View>
         </View>
       </View>
@@ -110,5 +140,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
+
+const iconSize = 14;
 
 export default App;
