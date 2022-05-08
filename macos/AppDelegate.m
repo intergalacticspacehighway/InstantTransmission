@@ -36,8 +36,15 @@ NSPopover* popover;
   popover.behavior = NSPopoverBehaviorTransient;
   popover.contentViewController = rootViewController;
 
-  statusBarItem = [NSStatusBar.systemStatusBar statusItemWithLength:60];
-  statusBarItem.button.title = @"Cursor";
+  statusBarItem = [NSStatusBar.systemStatusBar statusItemWithLength: 20];
+
+  NSImage* appIcon = [NSApp applicationIconImage];
+
+
+
+  statusBarItem.button.image = appIcon;
+  statusBarItem.button.image.size = NSMakeSize(20, 20);;
+  
   statusBarItem.button.action = @selector(barItemAction:);
 
 }
