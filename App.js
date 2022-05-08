@@ -11,6 +11,9 @@ import {
 import {useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const asyncStorageKey = 'recordedCursorPositions';
 
 const InstantTransmission = NativeModules.InstantTransmissionModule;
 const InstantTransmissionEventEmitter = new NativeEventEmitter(
@@ -55,7 +58,22 @@ const App = () => {
     );
   };
 
-  console.log('cursors ', recordedCursorPositions);
+  useEffect(() => {
+    AsyncStorage.setItem(
+      asyncStorageKey,
+      JSON.stringify(recordedCursorPositions),
+    );
+  }, [recordedCursorPositions]);
+
+  useEffect(() => {
+    async function restoreItems() {
+      const values = await AsyncStorage.getItem(asyncStorageKey);
+      if (values) {
+        setRecordedCursorPositions(JSON.parse(values));
+      }
+    }
+    restoreItems();
+  }, []);
 
   return (
     <ScrollView>
@@ -64,6 +82,7 @@ const App = () => {
           {recordedCursorPositions.map(position => {
             return (
               <View
+                key={position.id}
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
@@ -72,7 +91,7 @@ const App = () => {
                   padding: 8,
                   borderRadius: 8,
                 }}>
-                <View key={position.id}>
+                <View>
                   <Text>#{position.id + 1}</Text>
                 </View>
                 <Pressable onPress={() => deletePosition(position.id)}>
@@ -110,7 +129,9 @@ const App = () => {
             </Text>
             {[7, 8, 9].map(t => {
               return (
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View
+                  key={t}
+                  style={{flexDirection: 'row', alignItems: 'center'}}>
                   <MaterialCommunityIcon
                     name="apple-keyboard-command"
                     size={iconSize}
