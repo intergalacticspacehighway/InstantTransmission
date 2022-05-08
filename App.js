@@ -82,6 +82,11 @@ const App = () => {
     });
   }, []);
 
+  const handleLaunchAtLogin = () => {
+    InstantTransmission.toggleLaunchAtLogin();
+    setLaunchAtLoginEnabled(!launchAtLoginEnabled);
+  };
+
   return (
     <ScrollView>
       <View style={{flex: 1}}>
@@ -156,13 +161,16 @@ const App = () => {
               alignItems: 'center',
               marginTop: 8,
             }}>
-            <Text style={{marginRight: 8, fontSize: 12}}>Launch at login</Text>
+            <Text
+              style={{
+                marginRight: 8,
+                fontSize: 12,
+              }}>
+              Launch at login
+            </Text>
             <Switch
               value={launchAtLoginEnabled}
-              onChange={() => {
-                InstantTransmission.toggleLaunchAtLogin();
-                setLaunchAtLoginEnabled(!launchAtLoginEnabled);
-              }}
+              onChange={handleLaunchAtLogin}
             />
           </View>
         </View>
