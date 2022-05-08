@@ -12,6 +12,7 @@
 @implementation AppDelegate
 NSStatusItem* statusBarItem;
 NSPopover* popover;
+Test* test;
 
 - (void)awakeFromNib {
   [super awakeFromNib];
@@ -39,7 +40,7 @@ NSPopover* popover;
   statusBarItem.button.title = @"hello";
   statusBarItem.button.action = @selector(barItemAction:);
   
-  Test* a = [[Test alloc] init];
+  test = [[Test alloc] init];
 
 }
 
