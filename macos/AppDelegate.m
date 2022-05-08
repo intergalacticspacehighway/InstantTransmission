@@ -31,7 +31,7 @@ NSPopover* popover;
 
   popover = [[NSPopover alloc] init];
 
-  popover.contentSize = NSMakeSize(200, 200);
+  popover.contentSize = NSMakeSize(200, 250);
   popover.animates = true;
   popover.behavior = NSPopoverBehaviorTransient;
   popover.contentViewController = rootViewController;

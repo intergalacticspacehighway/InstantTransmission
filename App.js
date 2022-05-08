@@ -9,7 +9,7 @@ import {
   Pressable,
   Switch,
 } from 'react-native';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -21,7 +21,6 @@ const InstantTransmissionEventEmitter = new NativeEventEmitter(
 const App = () => {
   const [recordedCursorPositions, setRecordedCursorPositions] = useState([]);
   const [launchAtLoginEnabled, setLaunchAtLoginEnabled] = useState(false);
-  const initialValueSet = useRef(false);
 
   useEffect(() => {
     InstantTransmission.launchAtLoginEnabled(v => {
@@ -43,10 +42,12 @@ const App = () => {
       'recordCursor',
       event => {
         if (recordedCursorPositions.length < 3) {
-          setRecordedCursorPositions([
+          const newData = [
             ...recordedCursorPositions,
             {id: recordedCursorPositions.length, ...event},
-          ]);
+          ];
+          setRecordedCursorPositions(newData);
+          InstantTransmission.persistData(JSON.stringify(newData));
         }
       },
     );
@@ -74,21 +75,11 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (initialValueSet.current) {
-      InstantTransmission.persistData(JSON.stringify(recordedCursorPositions));
-    }
-  }, [recordedCursorPositions]);
-
-  useEffect(() => {
-    async function restoreItems() {
-      InstantTransmission.getPersistedData(v => {
-        if (v) {
-          setRecordedCursorPositions(JSON.parse(v));
-          initialValueSet.current = true;
-        }
-      });
-    }
-    restoreItems();
+    InstantTransmission.getPersistedData(v => {
+      if (v) {
+        setRecordedCursorPositions(JSON.parse(v));
+      }
+    });
   }, []);
 
   return (
@@ -163,7 +154,7 @@ const App = () => {
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              marginTop: 16,
+              marginTop: 8,
             }}>
             <Text style={{marginRight: 8, fontSize: 12}}>Launch at login</Text>
             <Switch
