@@ -31,13 +31,13 @@ NSPopover* popover;
 
   popover = [[NSPopover alloc] init];
 
-  popover.contentSize = NSMakeSize(700, 800);
+  popover.contentSize = NSMakeSize(200, 200);
   popover.animates = true;
   popover.behavior = NSPopoverBehaviorTransient;
   popover.contentViewController = rootViewController;
 
   statusBarItem = [NSStatusBar.systemStatusBar statusItemWithLength:60];
-  statusBarItem.button.title = @"hello";
+  statusBarItem.button.title = @"Cursor";
   statusBarItem.button.action = @selector(barItemAction:);
 
 }
