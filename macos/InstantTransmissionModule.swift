@@ -64,14 +64,16 @@ class InstantTransmissionModule: RCTEventEmitter {
    
     DispatchQueue.main.async {
 
-      let indicatorHeight = 50.0;
-      let indicatorWidth = 50.0;
+      let indicatorHeight = 200.0;
+      let indicatorWidth = 200.0;
       
       let contentView = Circle()
-                .stroke(lineWidth: 2)
-                .foregroundColor(.blue)
+                .stroke(lineWidth: 4)
+                .foregroundColor(.primary)
                 .frame(width: indicatorWidth, height: indicatorHeight)
                 .padding(2)
+                .shadow(color: .black, radius: 10, x: 10, y: 10)
+      
       let window = NSWindow(
                 contentRect: NSRect(x: x - indicatorWidth / 2, y: y - indicatorHeight / 2, width: indicatorWidth, height: indicatorHeight),
                 styleMask: [.borderless],
