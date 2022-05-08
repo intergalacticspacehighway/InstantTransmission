@@ -5,7 +5,10 @@ import HotKey
 @objc(InstantTransmissionModule)
 class InstantTransmissionModule: RCTEventEmitter {
   let recordCursorShortcut: HotKey
-  let moveCursorShortcut: HotKey
+  let moveCursorShortcutFirst: HotKey
+  let moveCursorShortcutSecond: HotKey
+  let moveCursorShortcutThird: HotKey
+  
   let RECORD_CURSOR_EVENT = "recordCursor"
   let MOVE_CURSOR_EVENT = "moveCursor"
 
@@ -15,8 +18,11 @@ class InstantTransmissionModule: RCTEventEmitter {
   }
   
   override init() {
-    recordCursorShortcut = HotKey(key: .downArrow, modifiers: [.command, .shift])
-    moveCursorShortcut = HotKey(key: .rightArrow, modifiers: [.command, .shift])
+    recordCursorShortcut = HotKey(key: .zero, modifiers: [.command, .shift])
+    
+    moveCursorShortcutFirst = HotKey(key: .seven, modifiers: [.command, .shift])
+    moveCursorShortcutSecond = HotKey(key: .eight, modifiers: [.command, .shift])
+    moveCursorShortcutThird = HotKey(key: .nine, modifiers: [.command, .shift])
    
     super.init()
     
@@ -24,18 +30,31 @@ class InstantTransmissionModule: RCTEventEmitter {
   }
   
   func initializeListener() {
-    moveCursorShortcut.keyDownHandler = {
-      self.sendEvent(withName: self.MOVE_CURSOR_EVENT, body: ["name": "moveCursor"]);
+    moveCursorShortcutFirst.keyDownHandler = {
+      self.sendEvent(withName: self.MOVE_CURSOR_EVENT, body: ["name": "moveCursor", "index"
+                                                              : 0]);
+    }
+    
+    moveCursorShortcutSecond.keyDownHandler = {
+      self.sendEvent(withName: self.MOVE_CURSOR_EVENT, body: ["name": "moveCursor", "index"
+                                                              : 1]);
+    }
+    
+    moveCursorShortcutThird.keyDownHandler = {
+      self.sendEvent(withName: self.MOVE_CURSOR_EVENT, body: ["name": "moveCursor", "index"
+                                                              : 2]);
     }
     
     recordCursorShortcut.keyDownHandler = {
-      self.sendEvent(withName: self.RECORD_CURSOR_EVENT, body: ["name": "recordCursor"]);
+      let mousePosition = CGPoint(x: NSEvent.mouseLocation.x, y: (NSScreen.main?.frame.size.height)! - NSEvent.mouseLocation.y)
+      self.sendEvent(withName: self.RECORD_CURSOR_EVENT, body: ["x": mousePosition.x, "y": mousePosition.y]);
     }
     
   }
   
-  @objc func getName() { // Assume name comes from the any native API side
-//    successCallback(["SWIFT native Module"])
-    print("hi");
+
+  @objc func moveCursorTo(_ x: Double, y: Double) {
+    let position = NSPoint(x: x, y: y);
+    CGWarpMouseCursorPosition(position);
   }
 }

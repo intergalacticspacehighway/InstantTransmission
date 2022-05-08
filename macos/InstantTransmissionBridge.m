@@ -2,6 +2,6 @@
 
 @interface RCT_EXTERN_MODULE(InstantTransmissionModule, NSObject)
 
-RCT_EXTERN_METHOD(getName)
+RCT_EXTERN_METHOD(moveCursorTo:(double)x y:(double)y)
 
 @end
