@@ -12,7 +12,6 @@
 		514201522437B4B40078DB4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 514201512437B4B40078DB4F /* Assets.xcassets */; };
 		514201552437B4B40078DB4F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 514201532437B4B40078DB4F /* Main.storyboard */; };
 		514201582437B4B40078DB4F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 514201572437B4B40078DB4F /* main.m */; };
-		C00E46D2282674BA006D2596 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E46D1282674BA006D2596 /* Test.swift */; };
 		C00E46D528277931006D2596 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = C00E46D428277931006D2596 /* HotKey */; };
 		C00E46D728277AF5006D2596 /* InstantTransmissionModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E46D628277AF5006D2596 /* InstantTransmissionModule.swift */; };
 		C00E46DB28277BEA006D2596 /* InstantTransmissionBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = C00E46DA28277BEA006D2596 /* InstantTransmissionBridge.m */; };
@@ -39,7 +38,6 @@
 		A82DFB63B157C65E5D698CA2 /* Pods-Shared-instanttransmission-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shared-instanttransmission-iOS.release.xcconfig"; path = "Target Support Files/Pods-Shared-instanttransmission-iOS/Pods-Shared-instanttransmission-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		BCB02C991A3DA232DCD3291E /* Pods-instanttransmission.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instanttransmission.debug.xcconfig"; path = "Target Support Files/Pods-instanttransmission/Pods-instanttransmission.debug.xcconfig"; sourceTree = "<group>"; };
 		C00E46D0282674BA006D2596 /* instanttransmission-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "instanttransmission-Bridging-Header.h"; sourceTree = "<group>"; };
-		C00E46D1282674BA006D2596 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		C00E46D628277AF5006D2596 /* InstantTransmissionModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantTransmissionModule.swift; sourceTree = "<group>"; };
 		C00E46DA28277BEA006D2596 /* InstantTransmissionBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstantTransmissionBridge.m; sourceTree = "<group>"; };
 		CE0E74F571E1F48FF00A8324 /* Pods-Shared-instanttransmission.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shared-instanttransmission.release.xcconfig"; path = "Target Support Files/Pods-Shared-instanttransmission/Pods-Shared-instanttransmission.release.xcconfig"; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 			children = (
 				C00E46DA28277BEA006D2596 /* InstantTransmissionBridge.m */,
 				C00E46D628277AF5006D2596 /* InstantTransmissionModule.swift */,
-				C00E46D1282674BA006D2596 /* Test.swift */,
 				38423A3E24576CBC00BC2EAC /* main.jsbundle */,
 				5142014B2437B4B30078DB4F /* AppDelegate.h */,
 				5142014C2437B4B30078DB4F /* AppDelegate.m */,
@@ -291,7 +288,6 @@
 				C00E46DB28277BEA006D2596 /* InstantTransmissionBridge.m in Sources */,
 				514201582437B4B40078DB4F /* main.m in Sources */,
 				5142014D2437B4B30078DB4F /* AppDelegate.m in Sources */,
-				C00E46D2282674BA006D2596 /* Test.swift in Sources */,
 				C00E46D728277AF5006D2596 /* InstantTransmissionModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
