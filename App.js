@@ -7,13 +7,11 @@ import {
   Text,
   StyleSheet,
   Pressable,
+  Switch,
 } from 'react-native';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const asyncStorageKey = 'recordedCursorPositions';
 
 const InstantTransmission = NativeModules.InstantTransmissionModule;
 const InstantTransmissionEventEmitter = new NativeEventEmitter(
@@ -22,6 +20,23 @@ const InstantTransmissionEventEmitter = new NativeEventEmitter(
 
 const App = () => {
   const [recordedCursorPositions, setRecordedCursorPositions] = useState([]);
+  const [launchAtLoginEnabled, setLaunchAtLoginEnabled] = useState(false);
+  const initialValueSet = useRef(false);
+
+  useEffect(() => {
+    InstantTransmission.launchAtLoginEnabled(v => {
+      setLaunchAtLoginEnabled(v);
+    });
+
+    let listener = InstantTransmissionEventEmitter.addListener(
+      'launchAtLoginChange',
+      setLaunchAtLoginEnabled,
+    );
+
+    return () => {
+      listener.remove();
+    };
+  }, []);
 
   useEffect(() => {
     let listenerOne = InstantTransmissionEventEmitter.addListener(
@@ -59,18 +74,19 @@ const App = () => {
   };
 
   useEffect(() => {
-    AsyncStorage.setItem(
-      asyncStorageKey,
-      JSON.stringify(recordedCursorPositions),
-    );
+    if (initialValueSet.current) {
+      InstantTransmission.persistData(JSON.stringify(recordedCursorPositions));
+    }
   }, [recordedCursorPositions]);
 
   useEffect(() => {
     async function restoreItems() {
-      const values = await AsyncStorage.getItem(asyncStorageKey);
-      if (values) {
-        setRecordedCursorPositions(JSON.parse(values));
-      }
+      InstantTransmission.getPersistedData(v => {
+        if (v) {
+          setRecordedCursorPositions(JSON.parse(v));
+          initialValueSet.current = true;
+        }
+      });
     }
     restoreItems();
   }, []);
@@ -101,10 +117,7 @@ const App = () => {
             );
           })}
           <View style={{marginTop: 8}}>
-            <Text
-              style={{fontSize: iconSize, fontWeight: 'bold', marginBottom: 4}}>
-              Save
-            </Text>
+            <Text style={{fontSize: iconSize, marginBottom: 4}}>Save</Text>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <MaterialCommunityIcon
                 name="apple-keyboard-command"
@@ -121,7 +134,6 @@ const App = () => {
             <Text
               style={{
                 fontSize: iconSize,
-                fontWeight: 'bold',
                 marginBottom: 4,
                 marginTop: 8,
               }}>
@@ -146,6 +158,21 @@ const App = () => {
                 </View>
               );
             })}
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginTop: 16,
+            }}>
+            <Text style={{marginRight: 8, fontSize: 12}}>Launch at login</Text>
+            <Switch
+              value={launchAtLoginEnabled}
+              onChange={() => {
+                InstantTransmission.toggleLaunchAtLogin();
+                setLaunchAtLoginEnabled(!launchAtLoginEnabled);
+              }}
+            />
           </View>
         </View>
       </View>

@@ -1,6 +1,6 @@
 import Foundation
 import HotKey
-
+import LaunchAtLogin
 
 @objc(InstantTransmissionModule)
 class InstantTransmissionModule: RCTEventEmitter {
@@ -11,14 +11,17 @@ class InstantTransmissionModule: RCTEventEmitter {
   
   let RECORD_CURSOR_EVENT = "recordCursor"
   let MOVE_CURSOR_EVENT = "moveCursor"
+  let LAUNCH_AT_LOGIN_CHANGE_EVENT = "launchAtLoginChange"
+  let storageKey = "_InstantTransmissionModule_"
 
   
   override func supportedEvents() -> [String]? {
-    return [RECORD_CURSOR_EVENT, MOVE_CURSOR_EVENT];
+    return [RECORD_CURSOR_EVENT, MOVE_CURSOR_EVENT, LAUNCH_AT_LOGIN_CHANGE_EVENT];
   }
   
   override init() {
     recordCursorShortcut = HotKey(key: .zero, modifiers: [.command, .shift])
+
     
     moveCursorShortcutFirst = HotKey(key: .seven, modifiers: [.command, .shift])
     moveCursorShortcutSecond = HotKey(key: .eight, modifiers: [.command, .shift])
@@ -56,5 +59,26 @@ class InstantTransmissionModule: RCTEventEmitter {
   @objc func moveCursorTo(_ x: Double, y: Double) {
     let position = NSPoint(x: x, y: y);
     CGWarpMouseCursorPosition(position);
+  }
+  
+  @objc func toggleLaunchAtLogin() {
+    LaunchAtLogin.isEnabled = !LaunchAtLogin.isEnabled;
+    self.sendEvent(withName: self.LAUNCH_AT_LOGIN_CHANGE_EVENT, body: LaunchAtLogin.isEnabled);
+  }
+  
+  @objc func launchAtLoginEnabled(_ callback: RCTResponseSenderBlock) {
+    callback([LaunchAtLogin.isEnabled]);
+  }
+  
+  @objc func persistData(_ data:String) {
+    let defaults = UserDefaults.standard;
+    defaults.set(data, forKey: storageKey)
+  }
+  
+  @objc func getPersistedData(_ callback:RCTResponseSenderBlock) {
+    let defaults = UserDefaults.standard;
+    if let data = defaults.string(forKey: storageKey) {
+      callback([data]);
+    }
   }
 }
