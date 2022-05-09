@@ -115,4 +115,10 @@ class InstantTransmissionModule: RCTEventEmitter {
       callback([data]);
     }
   }
+  
+  @objc func quitApp() {
+    DispatchQueue.main.async {
+      NSApp.terminate(nil)
+    }
+  }
 }

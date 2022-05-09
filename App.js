@@ -176,6 +176,14 @@ const App = () => {
               onChange={handleLaunchAtLogin}
             />
           </View>
+          <Pressable onPress={() => InstantTransmission.quitApp()}>
+            <Text
+              style={{
+                fontSize: 12,
+              }}>
+              Exit
+            </Text>
+          </Pressable>
         </View>
       </View>
     </ScrollView>

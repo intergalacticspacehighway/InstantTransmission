@@ -7,5 +7,6 @@ RCT_EXTERN_METHOD(launchAtLoginEnabled: (RCTResponseSenderBlock*) callback)
 RCT_EXTERN_METHOD(toggleLaunchAtLogin)
 RCT_EXTERN_METHOD(persistData: (NSString*) data)
 RCT_EXTERN_METHOD(getPersistedData: (RCTResponseSenderBlock*) callback)
+RCT_EXTERN_METHOD(quitApp)
 
 @end
